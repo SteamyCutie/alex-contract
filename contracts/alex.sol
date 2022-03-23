@@ -1276,7 +1276,7 @@ contract alex is ERC721Enumerable, Ownable, ReentrancyGuard {
   uint256 public maxSupply = 8888;
   uint256 public maxMintAmount = 8;
   uint256 public nftPerAddressLimit = 88;
-  uint256 public saleLimit = 5000;
+  uint256 public saleLimit = 5000;                      //  NFT sale limit to check availability of the withdraw() function
   bool public reveal = false;
   bool public paused = false;
   bool public onlyWhitelisted = true;
@@ -1429,10 +1429,16 @@ contract alex is ERC721Enumerable, Ownable, ReentrancyGuard {
     whitelistedAddresses = _users;
   }
 
+  // Set the limit of the NFT sale for checking if it is enough for call withdraw() function
   function setSaleLimit(uint256 _newSaleLimit) public onlyOwner {
     saleLimit = _newSaleLimit;
   }
 
+  // Check if the withdraw function is available by means of checking all the tokens
+  // if the token exists
+  //   and the owner of the token is same as the minter of the token
+  // if it is not the same, which means the token is sold from the minter to the others
+  // counts all tokens that are sold and check if the sold count is greater than sale limit.
   function canWithDraw() public view onlyOwner returns (bool) {
     uint saleCount = 0;
     for (uint i = 0; i < maxSupply; i ++) {
