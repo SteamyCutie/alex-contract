@@ -1276,6 +1276,7 @@ contract alex is ERC721Enumerable, Ownable, ReentrancyGuard {
   uint256 public maxSupply = 8888;
   uint256 public maxMintAmount = 8;
   uint256 public nftPerAddressLimit = 88;
+  uint256 public saleLimit = 5000;
   bool public reveal = false;
   bool public paused = false;
   bool public onlyWhitelisted = true;
@@ -1426,6 +1427,10 @@ contract alex is ERC721Enumerable, Ownable, ReentrancyGuard {
   function whitelistUsers(address[] calldata _users) public onlyOwner {
     delete whitelistedAddresses;
     whitelistedAddresses = _users;
+  }
+
+  function setSaleLimit(uint256 _newSaleLimit) public onlyOwner {
+    saleLimit = _newSaleLimit;
   }
 
   function withdraw() public payable onlyOwner {
