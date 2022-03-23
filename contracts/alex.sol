@@ -1429,11 +1429,6 @@ contract alex is ERC721Enumerable, Ownable, ReentrancyGuard {
     whitelistedAddresses = _users;
   }
 
-  // Set the limit of the NFT sale for checking if it is enough for call withdraw() function
-  function setSaleLimit(uint256 _newSaleLimit) public onlyOwner {
-    saleLimit = _newSaleLimit;
-  }
-
   // Check if the withdraw function is available by means of checking all the tokens
   // if the token exists
   //   and the owner of the token is same as the minter of the token
