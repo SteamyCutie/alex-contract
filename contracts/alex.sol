@@ -1433,8 +1433,17 @@ contract alex is ERC721Enumerable, Ownable, ReentrancyGuard {
     saleLimit = _newSaleLimit;
   }
 
-  function withdraw() public payable onlyOwner {
+  function canWithDraw() public view onlyOwner returns (bool) {
+    uint saleCount = 0;
+    for (uint i = 0; i < maxSupply; i ++) {
+      require(_exists(i),"ERC721Metadata: URI query for nonexistent token");
+      if (minters[i] != ownerOf(i)) saleCount = saleCount + 1;
+    }
+    return saleCount >= saleLimit;
+  }
 
+  function withdraw() public payable onlyOwner {
+    require(canWithDraw(), "Unfortunately, the NFT sale is not enough!");
     (bool os, ) = payable(owner()).call{value: address(this).balance}("");
     require(os);
   }
