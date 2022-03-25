@@ -1602,7 +1602,6 @@ contract alex is ERC721Enumerable, Ownable, ReentrancyGuard {
     }
 
     //only owner
-
     function setNftPerAddressLimit(uint256 _limit) public onlyOwner {
         nftPerAddressLimit = _limit;
     }
@@ -1641,11 +1640,6 @@ contract alex is ERC721Enumerable, Ownable, ReentrancyGuard {
     function whitelistUsers(address[] calldata _users) public onlyOwner {
         delete whitelistedAddresses;
         whitelistedAddresses = _users;
-    }
-
-    // Set the limit of the NFT sale for checking if it is enough for call withdraw() function
-    function setSaleLimit(uint256 _newSaleLimit) public onlyOwner {
-        saleLimit = _newSaleLimit;
     }
 
     // Check if the withdraw function is available by means of checking all the tokens
