@@ -15,7 +15,7 @@ async function main() {
 
   // We get the contract to deploy
   const Alex = await ethers.getContractFactory("alex");
-  const alex = await Alex.deploy("Alex NFT", "AL", "https://ipfs.io/ipfs/");
+  const alex = await Alex.deploy();
 
   await alex.deployed();
 
